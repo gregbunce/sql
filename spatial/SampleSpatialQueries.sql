@@ -6,8 +6,6 @@ ORDER BY Shape.STDistance(@g);
 
 --select * from ADDRESSPOINTS where OBJECTID = 401823
 
-
-
 -- select nearest ADDRESS POINTS to ADDRESS POINTS 
 DECLARE @g geometry = (select Shape from PIUTE_FROMCOUNTY where OBJECTID = 6);
 SELECT TOP(1) Shape.STDistance(@g) as DISTANCE, OBJECTID, UTAddPtID  FROM PIUTE_TOSGID
@@ -19,8 +17,6 @@ DECLARE @g geometry = (select Shape from @InputLayerName where OBJECTID = @Inupt
 SELECT TOP(1) Shape.STDistance(@g) as DISTANCE, *  FROM @ClosestAddrLayerName
 WHERE Shape.STDistance(@g) is not null and Shape.STDistance(@g) < 30
 ORDER BY Shape.STDistance(@g);
-
-
 
 -- call the stored procedure that gets the nearest address point from supplied OID
 EXECUTE uspGetNearestAddressPointFromPoint @InputLayerOID = 5;
