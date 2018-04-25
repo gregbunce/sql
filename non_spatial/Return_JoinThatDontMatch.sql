@@ -17,7 +17,7 @@ from (SELECT DISTINCT AddSystem,AddNum,AddNumSuffix,PrefixDir,StreetName,StreetT
 		and a.PrefixDir <> b.PrefixDir
 	)
 
-
+-- same as above, but without adding the concatenation UTAddPtID field 
 select a.*
 from (SELECT DISTINCT AddSystem,AddNum,AddNumSuffix,PrefixDir,StreetName,StreetType,SuffixDir,City,ZipCode,CountyID FROM LOCATION.ADDRESSPOINTS WHERE PrefixDir <> '' AND StreetName LIKE '%[A-Z]%' AND StreetName NOT LIKE 'HIGHWAY %' AND AddSystem = 'SALT LAKE CITY') a
 where NOT EXISTS
@@ -46,7 +46,7 @@ and a.SuffixDir = b.SuffixDir
 and a.AddNumSuffix = b.AddNumSuffix
 and a.PrefixDir <> b.PrefixDir
 
-
+-- same as above, but without adding the concatenation UTAddPtID field 
 SELECT a.AddNum, a.AddNumSuffix, a.PrefixDir, b.PrefixDir, a.StreetName, a.StreetType, a.SuffixDir, a.City, a.ZipCode, a.CountyID
 from (SELECT DISTINCT AddSystem,AddNum,AddNumSuffix,PrefixDir,StreetName,StreetType,SuffixDir,City,ZipCode,CountyID FROM LOCATION.ADDRESSPOINTS WHERE PrefixDir <> '' AND StreetName LIKE '%[A-Z]%' AND StreetName NOT LIKE 'HIGHWAY %' AND AddSystem = 'SALT LAKE CITY')  a, (SELECT DISTINCT AddSystem,AddNum,AddNumSuffix,PrefixDir,StreetName,StreetType,SuffixDir,City,ZipCode,CountyID FROM LOCATION.ADDRESSPOINTS WHERE PrefixDir <> '' AND StreetName LIKE '%[A-Z]%' AND StreetName NOT LIKE 'HIGHWAY %' AND AddSystem = 'SALT LAKE CITY') b
 where a.AddSystem = b.AddSystem
