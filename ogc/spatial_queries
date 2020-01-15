@@ -1,0 +1,21 @@
+-- this files contains some common ogc sql spatial queries
+
+
+-- What is the length of roads fully contained within each municipality?
+SELECT
+  m.name,
+  sum(ST_Length(r.shape))/1000 as roads_km
+FROM
+  transportation.roads AS r,
+  boundaries.municipal_boundaries AS m
+WHERE
+  ST_Contains(m.shape, r.shape)
+GROUP BY m.name
+ORDER BY roads_km;
+
+
+-- What is the largest municipality polygon that has a hole?
+SELECT countynbr, name, ST_Area(shape) AS area
+FROM boundaries.municipal_boundaries
+WHERE ST_NRings(shape) > 1
+ORDER BY area DESC LIMIT 1;
