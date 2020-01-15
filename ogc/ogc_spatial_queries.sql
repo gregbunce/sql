@@ -44,3 +44,12 @@ SELECT
   ST_Extent(shape) AS extent
 FROM 
   cadastre.beaver_county_parcels
+
+
+-- Get the 2-dimensional cartesian minimum distacne between two points
+SELECT 
+	ST_Distance(a.shape, b.shape)
+FROM 
+	location.address_points a, location.address_points b
+WHERE 
+	a.utaddptid='SALT LAKE CITY | 2468 N PINECREST CANYON RD' AND b.utaddptid='SALT LAKE CITY | 36 S WASATCH DR';
