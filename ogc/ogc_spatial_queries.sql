@@ -54,5 +54,14 @@ FROM
   location.address_points a, 
   location.address_points b
 WHERE 
-  a.utaddptid='SALT LAKE CITY | 2468 N PINECREST CANYON RD' 
+  a.utaddptid='SALT LAKE CITY | 350 N STATE ST' 
   AND b.utaddptid='SALT LAKE CITY | 36 S WASATCH DR';
+
+
+-- Get well-known text of feature.
+SELECT 
+	 ST_AsText(shape)
+FROM
+  location.address_points
+WHERE
+  utaddptid='SALT LAKE CITY | 350 N STATE ST';
