@@ -1,5 +1,6 @@
--- Note: This files contains some common ogc sql spatial queries
-________________________________________________________________
+-- Note: This files contains sample OGC SQL spatial queries.
+-- They were created to test on Utah's Public SGID on PostgreSQL/PostGIS DB.
+____________________________________________________________________________
 
 -- Get the voting precint that intersects an address point
 SELECT
@@ -10,7 +11,7 @@ FROM
 WHERE 
   b.fulladd = '550 S GUARDSMAN WAY' 
   AND b.zipcode = '84108' 
-  AND ST_Intersects(a.shape, b.shape)
+  AND ST_Intersects(a.shape, b.shape);
 
 
 -- Get the length of roads fully contained within each municipality.
@@ -43,13 +44,15 @@ ORDER BY
 SELECT 
   ST_Extent(shape) AS extent
 FROM 
-  cadastre.beaver_county_parcels
+  cadastre.beaver_county_parcels;
 
 
--- Get the 2-dimensional cartesian minimum distacne between two points
+-- Get the 2-dimensional cartesian minimum distacne between two points.
 SELECT 
-	ST_Distance(a.shape, b.shape)
+  ST_Distance(a.shape, b.shape)
 FROM 
-	location.address_points a, location.address_points b
+  location.address_points a, 
+  location.address_points b
 WHERE 
-	a.utaddptid='SALT LAKE CITY | 2468 N PINECREST CANYON RD' AND b.utaddptid='SALT LAKE CITY | 36 S WASATCH DR';
+  a.utaddptid='SALT LAKE CITY | 2468 N PINECREST CANYON RD' 
+  AND b.utaddptid='SALT LAKE CITY | 36 S WASATCH DR';
