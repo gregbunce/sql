@@ -13,6 +13,51 @@ WHERE
   AND b.zipcode = '84108' 
   AND ST_Intersects(a.shape, b.shape);
 
+  
+-- Get the extent (the bounding box) of a geometry by layer name.
+SELECT 
+  ST_Extent(shape) AS extent
+FROM 
+  cadastre.beaver_county_parcels;
+
+
+-- Get the 2-dimensional cartesian minimum distacne between two points.
+SELECT 
+  ST_Distance(a.shape, b.shape)
+FROM 
+  location.address_points a, 
+  location.address_points b
+WHERE 
+  a.utaddptid='SALT LAKE CITY | 350 N STATE ST' 
+  AND b.utaddptid='SALT LAKE CITY | 36 S WASATCH DR';
+
+
+-- Get well-known text of feature.
+SELECT 
+  ST_AsText(shape)
+FROM
+  location.address_points
+WHERE
+  utaddptid = 'SALT LAKE CITY | 350 N STATE ST';
+  
+
+-- Transform/Reproject a feature to a new SRID/Projection.
+SELECT
+  ST_AsText(ST_Transform(a.shape, 4326))
+FROM
+  location.address_points a
+WHERE
+  a.utaddptid='SALT LAKE CITY | 350 N STATE ST';
+
+
+-- GeoHash a feature.
+SELECT
+  ST_GeoHash(ST_AsText(ST_Transform(a.shape, 4326)))
+FROM
+  location.address_points a
+WHERE
+  a.utaddptid='SALT LAKE CITY | 350 N STATE ST';
+  
 
 -- Get the length of roads fully contained within each municipality.
 SELECT
@@ -38,30 +83,3 @@ WHERE
   ST_NRings(shape) > 1
 ORDER BY 
   area DESC LIMIT 1;
-  
-  
--- Get the extent (the bounding box) of a geometry by layer name.
-SELECT 
-  ST_Extent(shape) AS extent
-FROM 
-  cadastre.beaver_county_parcels;
-
-
--- Get the 2-dimensional cartesian minimum distacne between two points.
-SELECT 
-  ST_Distance(a.shape, b.shape)
-FROM 
-  location.address_points a, 
-  location.address_points b
-WHERE 
-  a.utaddptid='SALT LAKE CITY | 350 N STATE ST' 
-  AND b.utaddptid='SALT LAKE CITY | 36 S WASATCH DR';
-
-
--- Get well-known text of feature.
-SELECT 
-	 ST_AsText(shape)
-FROM
-  location.address_points
-WHERE
-  utaddptid='SALT LAKE CITY | 350 N STATE ST';
