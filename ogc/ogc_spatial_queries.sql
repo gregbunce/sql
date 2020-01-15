@@ -37,3 +37,10 @@ WHERE
   ST_NRings(shape) > 1
 ORDER BY 
   area DESC LIMIT 1;
+  
+  
+-- Get the extent (the bounding box) of a geometry by layer name.
+SELECT 
+  ST_Extent(shape) as extent
+FROM 
+  cadastre.beaver_county_parcels
