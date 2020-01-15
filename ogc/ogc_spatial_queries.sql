@@ -50,7 +50,7 @@ WHERE
   a.utaddptid='SALT LAKE CITY | 350 N STATE ST';
 
 
--- GeoHash a feature.
+-- GeoHash a feature (but, first it must be reprojected to lat/long).
 SELECT
   ST_GeoHash(ST_AsText(ST_Transform(a.shape, 4326)))
 FROM
@@ -58,6 +58,13 @@ FROM
 WHERE
   a.utaddptid='SALT LAKE CITY | 350 N STATE ST';
   
+  
+-- Get geometry point from existing GeoHash
+SELECT ST_AsText(ST_PointFromGeoHash('9x0rvzm82pnm0d0pptgr'));
+
+-- Get geometry polygon from existing GeoHash (geometry will be a polygon representing the GeoHash bounds)
+SELECT ST_AsText(ST_GeomFromGeoHash('9x0rvzm82pnm0d0pptgr'));
+
 
 -- Get the length of roads fully contained within each municipality.
 SELECT
