@@ -5,18 +5,18 @@ ________________________________________________________________
 SELECT
   *
 FROM 
-  political.vista_ballot_areas a, 
-  location.address_points b 
+  political.vista_ballot_areas AS a, 
+  location.address_points AS b 
 WHERE 
   b.fulladd = '550 S GUARDSMAN WAY' 
-  AND b.zipcode='84108' 
+  AND b.zipcode = '84108' 
   AND ST_Intersects(a.shape, b.shape)
 
 
 -- Get the length of roads fully contained within each municipality.
 SELECT
   m.name,
-  sum(ST_Length(r.shape))/1000 as roads_km
+  sum(ST_Length(r.shape))/1000 AS roads_km
 FROM
   transportation.roads AS r,
   boundaries.municipal_boundaries AS m
@@ -41,6 +41,6 @@ ORDER BY
   
 -- Get the extent (the bounding box) of a geometry by layer name.
 SELECT 
-  ST_Extent(shape) as extent
+  ST_Extent(shape) AS extent
 FROM 
   cadastre.beaver_county_parcels
