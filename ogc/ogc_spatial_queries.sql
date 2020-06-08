@@ -90,3 +90,6 @@ WHERE
   ST_NRings(shape) > 1
 ORDER BY 
   area DESC LIMIT 1;
+  
+-- Reproject the results (if data is not stored in 4326) on-the-fly so you can view the features in the built-in pgAdmin or DBeaver map viewer (the basemaps in these applications use SRID 4326) 
+select *, ST_Transform(shape, 4326) from water.watersheds_area wa where wa.hu_8_name like 'Jordan'
