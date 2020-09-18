@@ -96,3 +96,7 @@ select *, ST_Transform(shape, 4326) from water.watersheds_area wa where wa.hu_8_
 
 -- Get spatial reference id (SRID) for table
 select distinct ST_SRID(shape) from transportation.roads;
+                
+-- select geom (shape in our case) as text, geojson, kml, gml
+SELECT st_astext(shape), st_asgeojson(shape), st_askml(shape), st_asgml(shape)
+FROM location.address_points limit 1;
