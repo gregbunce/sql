@@ -5,5 +5,5 @@ declare @now datetime
 set @now = GETDATE()
 set @twoweeksago = DATEADD(day, -14, @now) 
 
-select FROMADDR_L, TOADDR_L, PREDIR, FULLNAME, ADDRSYS_L, ZIPCODE_L, CREATED from Transportation.ROADS r 
-where CREATED between @twoweeksago and @now 
+select r.FROMADDR_L, r.TOADDR_L, MID_RANGE_NUMBER = (select mid = ((r.FROMADDR_L + r.TOADDR_L))/2), r.PREDIR, r.FULLNAME, r.ADDRSYS_L, r.ZIPCODE_L, r.CREATED from Transportation.ROADS r 
+where CREATED between @twoweeksago and @now
