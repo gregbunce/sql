@@ -2,6 +2,19 @@
 -- They were created to test on Utah's Public SGID on PostgreSQL/PostGIS DB.
 ____________________________________________________________________________
 
+-- Get total length of roads by DOT Class in Jurisdiction by Mile and Meter
+select 
+    dot_class, incmuni_l, SUM(ST_Length(shape))/1609.344 as total_miles, SUM(ST_Length(shape)) as total_meters 
+from 
+    transportation.roads r 
+where 
+    dot_class in ('A','B','C','D') and incmuni_l = 'Rockville'
+group by 
+    dot_class, incmuni_l 
+order by 
+    dot_class
+
+
 -- Get the voting precint that intersects an address point
 SELECT
   *
