@@ -4,7 +4,7 @@ ____________________________________________________________________________
 
 -- Get total length of roads by DOT Class in Jurisdiction by Mile and Meter
 select 
-    dot_class, incmuni_l, SUM(ST_Length(shape))/1609.344 as total_miles, SUM(ST_Length(shape)) as total_meters 
+    dot_class, incmuni_l, ROUND(SUM(ST_Length(shape))/1609.344) as total_miles, ROUND(SUM(ST_Length(shape))) as total_meters 
 from 
     transportation.roads r 
 where 
